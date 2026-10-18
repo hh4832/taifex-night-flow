@@ -100,7 +100,7 @@ jobs:
           else:
               print(f"{day or target}: no persisted validated snapshot; fetching.")
           with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as output:
-              output.write(f"should_collect={'false' if already_validated else 'true'}\\n")
+              output.write(f"should_collect={'false' if already_validated else 'true'}\n")
           PY
       - name: Collect and persist
         if: steps.validation_guard.outputs.should_collect == 'true'
