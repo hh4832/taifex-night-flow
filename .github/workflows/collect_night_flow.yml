@@ -1,9 +1,11 @@
 name: Collect TAIFEX Night Flow
 on:
   schedule:
-    - cron: '30,45 22 * * 0-4'
-    - cron: '0,15,30,45 23 * * 0-4'
-    - cron: '0,15,30,45 0 * * 1-5'
+    # Taiwan time: weekdays 06:30 through 10:00, every 30 minutes.
+    # GitHub cron is UTC (UTC+8): 06:30 maps to 22:30 UTC on the prior day.
+    - cron: '30 22 * * 0-4'
+    - cron: '0,30 23 * * 0-4'
+    - cron: '0,30 0-2 * * 1-5'
   workflow_dispatch:
     inputs:
       target_date:
