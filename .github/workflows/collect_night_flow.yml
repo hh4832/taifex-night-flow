@@ -1,0 +1,57 @@
+name: Collect TAIFEX Night Flow
+on:
+  schedule:
+    - cron: '30,45 22 * * 0-4'
+    - cron: '0,15,30,45 23 * * 0-4'
+    - cron: '0,15,30,45 0 * * 1-5'
+  workflow_dispatch:
+    inputs:
+      target_date:
+        description: 'TAIFEX report date YYYY-MM-DD, or auto'
+        required: false
+        default: auto
+        type: string
+permissions:
+  contents: read
+concurrency:
+  group: taifex-night-flow-drive-writer
+  cancel-in-progress: false
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      TARGET_DATE: ${{ github.event.inputs.target_date || 'auto' }}
+      RCLONE_CONFIG_B64: ${{ secrets.RCLONE_CONFIG_B64 }}
+      RCLONE_REMOTE: drive
+      DRIVE_FOLDER_ID: 1bHNCF59WGheGa5Tmo_GDK53T4fxU00oD
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+      - run: python -m pip install -e .
+      - name: Configure and hydrate Drive history
+        shell: bash
+        run: |
+          if [[ -z "$RCLONE_CONFIG_B64" ]]; then
+            echo "RCLONE_CONFIG_B64 is not configured; this run will be local-only."
+            exit 0
+          fi
+          mkdir -p "$HOME/.config/rclone"
+          printf '%s' "$RCLONE_CONFIG_B64" | base64 --decode > "$HOME/.config/rclone/rclone.conf"
+          chmod 600 "$HOME/.config/rclone/rclone.conf"
+          rclone lsf "drive:" --drive-root-folder-id "$DRIVE_FOLDER_ID" >/dev/null
+          mkdir -p data
+          rclone copy "drive:" data --drive-root-folder-id "$DRIVE_FOLDER_ID" --exclude '.state/**'
+      - name: Collect and persist
+        run: taifex-night-flow --date "$TARGET_DATE" --data-dir data
+      - name: Upload run artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: taifex-night-flow-${{ github.run_id }}-${{ github.run_attempt }}
+          path: data/
+          if-no-files-found: warn
+          retention-days: 90

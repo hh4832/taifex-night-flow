@@ -1,0 +1,292 @@
+{
+  "2026-10-01": {
+    "trade_date": "2026-10-01",
+    "instruments": {
+      "TX": {
+        "foreign_long": 16127,
+        "foreign_long_value_thousand_ntd": 156095309,
+        "foreign_short": 16915,
+        "foreign_short_value_thousand_ntd": 163714348,
+        "foreign_net": -788,
+        "foreign_net_value_thousand_ntd": -7619039
+      },
+      "MTX": {
+        "foreign_long": 42047,
+        "foreign_long_value_thousand_ntd": 101742705,
+        "foreign_short": 44247,
+        "foreign_short_value_thousand_ntd": 107056109,
+        "foreign_net": -2200,
+        "foreign_net_value_thousand_ntd": -5313404
+      },
+      "TMF": {
+        "foreign_long": 65271,
+        "foreign_long_value_thousand_ntd": 31597667,
+        "foreign_short": 72250,
+        "foreign_short_value_thousand_ntd": 34963828,
+        "foreign_net": -6979,
+        "foreign_net_value_thousand_ntd": -3366161
+      }
+    }
+  },
+  "2026-10-05": {
+    "trade_date": "2026-10-05",
+    "instruments": {
+      "TX": {
+        "foreign_long": 18921,
+        "foreign_long_value_thousand_ntd": 185985004,
+        "foreign_short": 16325,
+        "foreign_short_value_thousand_ntd": 160500535,
+        "foreign_net": 2596,
+        "foreign_net_value_thousand_ntd": 25484469
+      },
+      "MTX": {
+        "foreign_long": 47839,
+        "foreign_long_value_thousand_ntd": 117585728,
+        "foreign_short": 43009,
+        "foreign_short_value_thousand_ntd": 105732391,
+        "foreign_net": 4830,
+        "foreign_net_value_thousand_ntd": 11853337
+      },
+      "TMF": {
+        "foreign_long": 73023,
+        "foreign_long_value_thousand_ntd": 35902207,
+        "foreign_short": 70028,
+        "foreign_short_value_thousand_ntd": 34441858,
+        "foreign_net": 2995,
+        "foreign_net_value_thousand_ntd": 1460349
+      }
+    }
+  },
+  "2026-10-06": {
+    "trade_date": "2026-10-06",
+    "instruments": {
+      "TX": {
+        "foreign_long": 10020,
+        "foreign_long_value_thousand_ntd": 100390972,
+        "foreign_short": 11047,
+        "foreign_short_value_thousand_ntd": 110663985,
+        "foreign_net": -1027,
+        "foreign_net_value_thousand_ntd": -10273013
+      },
+      "MTX": {
+        "foreign_long": 23893,
+        "foreign_long_value_thousand_ntd": 59845012,
+        "foreign_short": 25955,
+        "foreign_short_value_thousand_ntd": 65006330,
+        "foreign_net": -2062,
+        "foreign_net_value_thousand_ntd": -5161318
+      },
+      "TMF": {
+        "foreign_long": 39751,
+        "foreign_long_value_thousand_ntd": 19917971,
+        "foreign_short": 44272,
+        "foreign_short_value_thousand_ntd": 22182056,
+        "foreign_net": -4521,
+        "foreign_net_value_thousand_ntd": -2264085
+      }
+    }
+  },
+  "2026-10-07": {
+    "trade_date": "2026-10-07",
+    "instruments": {
+      "TX": {
+        "foreign_long": 9276,
+        "foreign_long_value_thousand_ntd": 92962986,
+        "foreign_short": 9886,
+        "foreign_short_value_thousand_ntd": 99087372,
+        "foreign_net": -610,
+        "foreign_net_value_thousand_ntd": -6124386
+      },
+      "MTX": {
+        "foreign_long": 23361,
+        "foreign_long_value_thousand_ntd": 58532186,
+        "foreign_short": 25230,
+        "foreign_short_value_thousand_ntd": 63221487,
+        "foreign_net": -1869,
+        "foreign_net_value_thousand_ntd": -4689301
+      },
+      "TMF": {
+        "foreign_long": 35718,
+        "foreign_long_value_thousand_ntd": 17902501,
+        "foreign_short": 38400,
+        "foreign_short_value_thousand_ntd": 19246658,
+        "foreign_net": -2682,
+        "foreign_net_value_thousand_ntd": -1344157
+      }
+    }
+  },
+  "2026-10-08": {
+    "trade_date": "2026-10-08",
+    "instruments": {
+      "TX": {
+        "foreign_long": 14000,
+        "foreign_long_value_thousand_ntd": 138799963,
+        "foreign_short": 16794,
+        "foreign_short_value_thousand_ntd": 166497948,
+        "foreign_net": -2794,
+        "foreign_net_value_thousand_ntd": -27697985
+      },
+      "MTX": {
+        "foreign_long": 36477,
+        "foreign_long_value_thousand_ntd": 90418999,
+        "foreign_short": 40326,
+        "foreign_short_value_thousand_ntd": 99964850,
+        "foreign_net": -3849,
+        "foreign_net_value_thousand_ntd": -9545851
+      },
+      "TMF": {
+        "foreign_long": 57039,
+        "foreign_long_value_thousand_ntd": 28283325,
+        "foreign_short": 60972,
+        "foreign_short_value_thousand_ntd": 30244008,
+        "foreign_net": -3933,
+        "foreign_net_value_thousand_ntd": -1960683
+      }
+    }
+  },
+  "2026-10-12": {
+    "trade_date": "2026-10-12",
+    "instruments": {
+      "TX": {
+        "foreign_long": 21414,
+        "foreign_long_value_thousand_ntd": 209283674,
+        "foreign_short": 21210,
+        "foreign_short_value_thousand_ntd": 207308947,
+        "foreign_net": 204,
+        "foreign_net_value_thousand_ntd": 1974727
+      },
+      "MTX": {
+        "foreign_long": 51831,
+        "foreign_long_value_thousand_ntd": 126654650,
+        "foreign_short": 52389,
+        "foreign_short_value_thousand_ntd": 128030779,
+        "foreign_net": -558,
+        "foreign_net_value_thousand_ntd": -1376129
+      },
+      "TMF": {
+        "foreign_long": 81817,
+        "foreign_long_value_thousand_ntd": 40004332,
+        "foreign_short": 82998,
+        "foreign_short_value_thousand_ntd": 40576967,
+        "foreign_net": -1181,
+        "foreign_net_value_thousand_ntd": -572635
+      }
+    }
+  },
+  "2026-10-13": {
+    "trade_date": "2026-10-13",
+    "instruments": {
+      "TX": {
+        "foreign_long": 10314,
+        "foreign_long_value_thousand_ntd": 101368484,
+        "foreign_short": 11428,
+        "foreign_short_value_thousand_ntd": 112324181,
+        "foreign_net": -1114,
+        "foreign_net_value_thousand_ntd": -10955697
+      },
+      "MTX": {
+        "foreign_long": 26192,
+        "foreign_long_value_thousand_ntd": 64353970,
+        "foreign_short": 27621,
+        "foreign_short_value_thousand_ntd": 67873690,
+        "foreign_net": -1429,
+        "foreign_net_value_thousand_ntd": -3519720
+      },
+      "TMF": {
+        "foreign_long": 38965,
+        "foreign_long_value_thousand_ntd": 19151082,
+        "foreign_short": 45455,
+        "foreign_short_value_thousand_ntd": 22345527,
+        "foreign_net": -6490,
+        "foreign_net_value_thousand_ntd": -3194445
+      }
+    }
+  },
+  "2026-10-14": {
+    "trade_date": "2026-10-14",
+    "instruments": {
+      "TX": {
+        "foreign_long": 11928,
+        "foreign_long_value_thousand_ntd": 116068670,
+        "foreign_short": 10784,
+        "foreign_short_value_thousand_ntd": 104925026,
+        "foreign_net": 1144,
+        "foreign_net_value_thousand_ntd": 11143644
+      },
+      "MTX": {
+        "foreign_long": 30302,
+        "foreign_long_value_thousand_ntd": 73713217,
+        "foreign_short": 29888,
+        "foreign_short_value_thousand_ntd": 72700043,
+        "foreign_net": 414,
+        "foreign_net_value_thousand_ntd": 1013174
+      },
+      "TMF": {
+        "foreign_long": 50981,
+        "foreign_long_value_thousand_ntd": 24809119,
+        "foreign_short": 46717,
+        "foreign_short_value_thousand_ntd": 22732993,
+        "foreign_net": 4264,
+        "foreign_net_value_thousand_ntd": 2076126
+      }
+    }
+  },
+  "2026-10-15": {
+    "trade_date": "2026-10-15",
+    "instruments": {
+      "TX": {
+        "foreign_long": 19698,
+        "foreign_long_value_thousand_ntd": 190903874,
+        "foreign_short": 21801,
+        "foreign_short_value_thousand_ntd": 211358791,
+        "foreign_net": -2103,
+        "foreign_net_value_thousand_ntd": -20454917
+      },
+      "MTX": {
+        "foreign_long": 54093,
+        "foreign_long_value_thousand_ntd": 131097855,
+        "foreign_short": 56369,
+        "foreign_short_value_thousand_ntd": 136607997,
+        "foreign_net": -2276,
+        "foreign_net_value_thousand_ntd": -5510142
+      },
+      "TMF": {
+        "foreign_long": 86447,
+        "foreign_long_value_thousand_ntd": 41908892,
+        "foreign_short": 93446,
+        "foreign_short_value_thousand_ntd": 45309865,
+        "foreign_net": -6999,
+        "foreign_net_value_thousand_ntd": -3400973
+      }
+    }
+  },
+  "2026-10-16": {
+    "trade_date": "2026-10-16",
+    "instruments": {
+      "TX": {
+        "foreign_long": 24854,
+        "foreign_long_value_thousand_ntd": 233662800,
+        "foreign_short": 24082,
+        "foreign_short_value_thousand_ntd": 226439197,
+        "foreign_net": 772,
+        "foreign_net_value_thousand_ntd": 7223603
+      },
+      "MTX": {
+        "foreign_long": 65751,
+        "foreign_long_value_thousand_ntd": 154491138,
+        "foreign_short": 64932,
+        "foreign_short_value_thousand_ntd": 152609736,
+        "foreign_net": 819,
+        "foreign_net_value_thousand_ntd": 1881402
+      },
+      "TMF": {
+        "foreign_long": 114274,
+        "foreign_long_value_thousand_ntd": 53704992,
+        "foreign_short": 108824,
+        "foreign_short_value_thousand_ntd": 51152284,
+        "foreign_net": 5450,
+        "foreign_net_value_thousand_ntd": 2552708
+      }
+    }
+  }
+}

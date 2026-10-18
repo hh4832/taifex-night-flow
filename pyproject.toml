@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "taifex-night-flow"
+version = "0.1.0"
+description = "Auditable TAIFEX night-session foreign institutional flow collector"
+requires-python = ">=3.11,<3.12"
+dependencies = ["requests>=2.31,<3", "beautifulsoup4>=4.12,<5", "pyarrow>=15,<24"]
+
+[project.optional-dependencies]
+test = ["pytest>=8,<9", "pytest-cov>=5,<7"]
+
+[project.scripts]
+taifex-night-flow = "taifex_night_flow.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
