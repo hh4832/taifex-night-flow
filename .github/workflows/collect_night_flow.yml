@@ -50,7 +50,60 @@ jobs:
           echo "RCLONE_REMOTE=drive" >> "$GITHUB_ENV"
           mkdir -p data
           rclone copy "drive:" data --drive-root-folder-id "$DRIVE_FOLDER_ID" --exclude '.state/**'
+      - name: Check whether this trade date is already validated
+        id: validation_guard
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          from datetime import date
+          from pathlib import Path
+          from taifex_night_flow.calendar import CalendarUnavailable, expected_trade_date
+
+          target = os.environ["TARGET_DATE"]
+          day = None
+          if target == "auto":
+              try:
+                  open_days = {
+                      date.fromisoformat(line.strip())
+                      for line in Path("calendar/verified_open_dates.txt").read_text().splitlines()
+                      if line.strip() and not line.lstrip().startswith("#")
+                  }
+                  day = expected_trade_date(verified_open_dates=open_days)
+              except (OSError, ValueError, CalendarUnavailable) as exc:
+                  print(f"Trade date unresolved; collector will decide safely: {exc}")
+          else:
+              day = date.fromisoformat(target)
+
+          already_validated = False
+          pointer_path = Path("data/latest.json")
+          if day is not None and pointer_path.is_file():
+              try:
+                  pointer = json.loads(pointer_path.read_text(encoding="utf-8"))
+                  relative = Path(pointer["snapshot_path"])
+                  snapshot_path = (Path("data") / relative).resolve()
+                  if (Path("data").resolve() in snapshot_path.parents
+                          and pointer.get("status") == "VALIDATED"
+                          and pointer.get("trade_date") == day.isoformat()
+                          and snapshot_path.is_file()):
+                      snapshot = json.loads(snapshot_path.read_text(encoding="utf-8"))
+                      already_validated = (
+                          snapshot.get("status") == "VALIDATED"
+                          and snapshot.get("trade_date") == day.isoformat()
+                      )
+              except (KeyError, OSError, ValueError, TypeError):
+                  pass
+
+          if already_validated:
+              print(f"{day}: validated snapshot already persisted; skipping another fetch.")
+          else:
+              print(f"{day or target}: no persisted validated snapshot; fetching.")
+          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as output:
+              output.write(f"should_collect={'false' if already_validated else 'true'}\\n")
+          PY
       - name: Collect and persist
+        if: steps.validation_guard.outputs.should_collect == 'true'
         run: taifex-night-flow --date "$TARGET_DATE" --data-dir data
       - name: Upload run artifact
         if: always()
