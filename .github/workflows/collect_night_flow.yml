@@ -65,6 +65,7 @@ jobs:
 
           target = os.environ["TARGET_DATE"]
           day = None
+          skip_reason = None
           if target == "auto":
               try:
                   open_days = {
@@ -74,7 +75,8 @@ jobs:
                   }
                   day = expected_trade_date(verified_open_dates=open_days)
               except (OSError, ValueError, CalendarUnavailable) as exc:
-                  print(f"Trade date unresolved; collector will decide safely: {exc}")
+                  skip_reason = str(exc)
+                  print(f"Expected non-trading/out-of-window skip: {skip_reason}")
           else:
               day = date.fromisoformat(target)
 
@@ -97,12 +99,14 @@ jobs:
               except (KeyError, OSError, ValueError, TypeError):
                   pass
 
-          if already_validated:
+          if skip_reason:
+              print(f"Skipping collection: {skip_reason}")
+          elif already_validated:
               print(f"{day}: validated snapshot already persisted; skipping another fetch.")
           else:
               print(f"{day or target}: no persisted validated snapshot; fetching.")
           with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as output:
-              output.write(f"should_collect={'false' if already_validated else 'true'}\n")
+              output.write(f"should_collect={'false' if already_validated or skip_reason else 'true'}\n")
           PY
       - name: Collect and persist
         if: steps.validation_guard.outputs.should_collect == 'true'
