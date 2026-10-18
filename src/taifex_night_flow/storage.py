@@ -131,7 +131,7 @@ class EventStore:
             for day,digest,first_seen,snapshot_json in snapshots:
                 snapshot=json.loads(snapshot_json); snapshot["first_seen_at_utc"]=first_seen
                 records=[{"schema_version":SCHEMA_VERSION,"source":"TAIFEX","session":"NIGHT","trade_date":day,"first_seen_at_utc":first_seen,"validated_at_utc":snapshot.get("validated_at_utc"),"status":"VALIDATED","symbol":symbol,**values} for symbol,values in snapshot["instruments"].items()]
-                target=self.root/"snapshots"/day.replace("-","")/f"{digest[:16]}.parquet"
+                target=self.root/"snapshots"/day.replace("-","")/f"{digest}.parquet"
                 target.parent.mkdir(parents=True,exist_ok=True)
                 if not target.exists(): pq.write_table(pa.Table.from_pylist(records),target)
         except ImportError:

@@ -40,7 +40,7 @@ def main(argv=None):
         folder=Path(args.data_dir)/"daily"; folder.mkdir(parents=True,exist_ok=True)
         result["snapshot"]["first_seen_at_utc"]=event["first_seen_at_utc"]
         content=json.dumps(result["snapshot"],ensure_ascii=False,indent=2)
-        revision=folder/f"{day:%Y%m%d}_{event['normalized_data_sha256'][:12]}.json"
+        revision=folder/f"{day:%Y%m%d}_{event['normalized_data_sha256']}.json"
         if not revision.exists(): revision.write_text(content,encoding="utf-8")
         pointer={"schema_version":"1.0","trade_date":day.isoformat(),"status":"VALIDATED",
                  "first_seen_at_utc":event["first_seen_at_utc"],"validated_at_utc":event["validated_at_utc"],
