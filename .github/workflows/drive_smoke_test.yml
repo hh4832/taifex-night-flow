@@ -1,0 +1,49 @@
+name: Drive Read Write Smoke Test
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/drive_smoke_test.yml'
+permissions:
+  contents: read
+jobs:
+  drive-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    env:
+      RCLONE_CONFIG_B64: ${{ secrets.RCLONE_CONFIG_B64 }}
+      DRIVE_FOLDER_ID: 1bHNCF59WGheGa5Tmo_GDK53T4fxU00oD
+    steps:
+      - name: Test isolated Drive upload, readback and cleanup
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ -z "$RCLONE_CONFIG_B64" ]]; then
+            echo "::error::RCLONE_CONFIG_B64 missing"
+            exit 1
+          fi
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq rclone
+          export RCLONE_CONFIG="$RUNNER_TEMP/rclone.conf"
+          printf '%s' "$RCLONE_CONFIG_B64" | base64 --decode > "$RCLONE_CONFIG"
+          chmod 600 "$RCLONE_CONFIG"
+          rclone lsf 'drive:' --drive-root-folder-id "$DRIVE_FOLDER_ID" >/dev/null
+          test_dir="__github_actions_smoke_test__/run-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+          remote="drive:${test_dir}/probe.txt"
+          local_file="$RUNNER_TEMP/probe.txt"
+          printf 'TAIFEX-DRIVE-SMOKE-%s-%s\n' "$GITHUB_RUN_ID" "$GITHUB_RUN_ATTEMPT" > "$local_file"
+          cleanup() {
+            rc=$?
+            trap - EXIT
+            rclone deletefile "$remote" --drive-root-folder-id "$DRIVE_FOLDER_ID" >/dev/null 2>&1 || true
+            rclone rmdir "drive:${test_dir}" --drive-root-folder-id "$DRIVE_FOLDER_ID" >/dev/null 2>&1 || true
+            rclone rmdir 'drive:__github_actions_smoke_test__' --drive-root-folder-id "$DRIVE_FOLDER_ID" >/dev/null 2>&1 || true
+            rm -f "$RCLONE_CONFIG" "$local_file"
+            exit "$rc"
+          }
+          trap cleanup EXIT
+          rclone copyto "$local_file" "$remote" --drive-root-folder-id "$DRIVE_FOLDER_ID"
+          rclone cat "$remote" --drive-root-folder-id "$DRIVE_FOLDER_ID" > "$RUNNER_TEMP/readback.txt"
+          cmp "$local_file" "$RUNNER_TEMP/readback.txt"
+          echo "PASS: Drive list, write, readback and byte comparison"
+          echo "Temporary probe is removed by EXIT trap; production files untouched."
