@@ -97,3 +97,26 @@ def test_drive_failure_does_not_publish_or_advance_latest(tmp_path,monkeypatch):
     code=cli.main(["--date","2026-10-16","--data-dir",str(tmp_path),"--rclone-remote","drive"])
     assert code==4
     assert not (tmp_path/"latest.json").exists()
+
+def test_latest_readback_failure_restores_previous_drive_pointer(tmp_path,monkeypatch):
+    import subprocess
+    from taifex_night_flow import drive_sync
+    from taifex_night_flow.drive_sync import DriveSyncError
+    source=tmp_path/"latest.json"; source.write_bytes(b"new pointer")
+    remote={"latest.json":b"old pointer"}; copy_count=0
+    def fake_run(args,**kwargs):
+        nonlocal copy_count
+        if args[1]=="lsf": return subprocess.CompletedProcess(args,0,"latest.json\n","")
+        if args[1]=="cat":
+            value=remote.get("latest.json",b"")
+            if copy_count==1: value=b"corrupt readback"
+            return subprocess.CompletedProcess(args,0,value,"")
+        if args[1]=="copyto":
+            copy_count+=1
+            remote["latest.json"]=source.read_bytes() if copy_count==1 else b"old pointer"
+            return subprocess.CompletedProcess(args,0,b"","")
+        raise AssertionError(args)
+    monkeypatch.setattr(drive_sync.subprocess,"run",fake_run)
+    with pytest.raises(DriveSyncError,match="previous pointer restore attempted"):
+        drive_sync.publish_latest(source,"drive")
+    assert remote["latest.json"]==b"old pointer"
