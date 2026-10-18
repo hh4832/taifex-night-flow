@@ -18,5 +18,7 @@ def test_auto_calendar_fails_closed_without_verified_date():
 def test_auto_calendar_requires_window_and_open_date():
     open_days={date(2026,10,19)}
     assert expected_trade_date(datetime(2026,10,19,7,0,tzinfo=TAIPEI),open_days)==date(2026,10,19)
+    assert expected_trade_date(datetime(2026,10,19,9,0,tzinfo=TAIPEI),open_days)==date(2026,10,19)
+    assert expected_trade_date(datetime(2026,10,19,11,30,tzinfo=TAIPEI),open_days)==date(2026,10,19)
     with pytest.raises(CalendarUnavailable):
-        expected_trade_date(datetime(2026,10,19,9,0,tzinfo=TAIPEI),open_days)
+        expected_trade_date(datetime(2026,10,19,12,1,tzinfo=TAIPEI),open_days)
